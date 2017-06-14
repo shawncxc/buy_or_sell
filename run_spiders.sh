@@ -1,2 +1,2 @@
-scrapy runspider yahoo_spider.py -o ./result/yahoo.json
-scrapy runspider seekingalpha_spider.py -o ./result/seekingalpha.json
+scrapy runspider ./spider/yahoo_spider.py -o ./result/yahoo.json
+scrapy runspider ./spider/seekingalpha_spider.py -o ./result/seekingalpha.json
