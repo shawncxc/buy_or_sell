@@ -18,7 +18,3 @@ class SeekingAlphaStockSpider(scrapy.Spider):
                 'company': review.css('div.a-info span a::attr(title)').extract()[0],
                 'time': review.css('div.a-info span:nth-child(3)::text').extract(),
             }
-
-        # next_page = response.css('li.next a::attr("href")').extract_first()
-        # if next_page is not None:
-        #     yield response.follow(next_page, self.parse)
