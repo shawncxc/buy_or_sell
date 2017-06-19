@@ -12,8 +12,13 @@ def dump_tickers_into_json():
 			market_cap = float(ticker['MarketCap'])
 			two_billion = 2000000000
 			if market_cap >= two_billion:
-				companies.append({ 'name': ticker['Name'] })
+				companies.append({
+					'name': ticker['Name'],
+					'symbol': ticker['Symbol']
+				})
 
 		companylist_json_file = os.path.join(script_dir, './companies.json')
 		with open(companylist_json_file, 'w+') as file:
 			json.dump(companies, file)
+
+dump_tickers_into_json()
