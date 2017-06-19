@@ -5,7 +5,7 @@ def seekingalpha_processor():
 	news_dict = {}
 
 	script_dir = os.path.dirname(__file__)
-	file_path = os.path.join(script_dir, '../result/seekingalpha.json')
+	file_path = os.path.join(script_dir, './seekingalpha.json')
 	with open(file_path) as data_file:
 		data = json.load(data_file)
 		for news in data:

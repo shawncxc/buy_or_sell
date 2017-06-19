@@ -23,7 +23,7 @@ session.headers = {
 req = session.get("http://stocktwits.com/streams/poll?stream=symbol&max={}&stream_id={}&substream=top&item_id={}".format(max_id, item_id, item_id))
 json_data = json.loads(req.text)
 script_dir = os.path.dirname(__file__)
-file_path = os.path.join(script_dir, '../result/stocktwits.json')
+file_path = os.path.join(script_dir, './stocktwits.json')
 with open(file_path, 'w+') as file:
     for message in json_data['messages']:
         if message['sentiment'] is not None:

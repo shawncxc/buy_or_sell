@@ -10,7 +10,7 @@ def get_all_history():
     hisdict = {}
     duration = '5d'
     script_dir = os.path.dirname(__file__)
-    file_path = os.path.join(script_dir, '../ticker/companies.json')
+    file_path = os.path.join(script_dir, './companies.json')
     with open(file_path, 'r') as file:
         tickers = json.load(file)
         for ticker in tickers:
@@ -22,7 +22,7 @@ def get_all_history():
                 print 'Error when get_stock_history for:', symbol
                 continue
 
-    stock_history = os.path.join(script_dir, '../result/stock_history.json')
+    stock_history = os.path.join(script_dir, './stock_history.json')
     with open(stock_history, 'w+') as file:
         json.dump(hisdict, file)
 
@@ -51,6 +51,7 @@ def process_text(text):
     text = re.findall(r'<tr>(.*?)<\/tr>', text)
     for record in text:
         record = re.findall(r'<td>(.*?)<\/td>', record)
+        if not record[0]: continue
         record_obj = {
             'date': record[0],
             'open': float(record[1]),
@@ -60,7 +61,8 @@ def process_text(text):
             'volum': float(record[5].replace(',', ''))
         }
         records.append(record_obj)
-    print record_obj
+        print record_obj
     return records
 
 get_all_history()
+# get_stock_history('1y', 'AA')

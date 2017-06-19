@@ -1,3 +1,0 @@
-from processor.seekingalpha_processor import seekingalpha_processor
-
-seekingalpha_processor()

@@ -1,0 +1,1 @@
+scrapy runspider reuters_spider.py -o ./reuters.json
