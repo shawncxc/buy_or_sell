@@ -20,11 +20,11 @@ with open(file_path, 'r') as companies:
 			req.add_header('User-agent', 'Mozilla/5.0')
 			try:
 				response = urllib2.urlopen(req)
+				the_page = response.read()
+				the_page = json.loads(the_page)
+				if the_page['html'] == '': break
 			except:
 				continue
-			the_page = response.read()
-			the_page = json.loads(the_page)
-			if the_page['html'] == '': break
 			the_page = the_page['html']
 			titles = re.findall('target=_self>(.*.)</a></div>', the_page)
 			contents = re.findall('<ul><li>(.*.)</li></ul>', the_page)
