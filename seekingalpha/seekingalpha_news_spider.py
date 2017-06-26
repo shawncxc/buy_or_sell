@@ -32,7 +32,7 @@ with open(file_path, 'r') as companies:
 			for i in range(0, min(len(titles), len(contents), len(dates))):
 				single_news = {
 					'title': titles[i],
-					'content': contents[i],
+					'content': re.sub('<[^<]+?>', ' ', contents[i]),
 					'date': dates[i]
 				}
 				seeking_dict[symbol].append(single_news)

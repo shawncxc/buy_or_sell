@@ -1,1 +1,1 @@
-scrapy runspider ./seekingalpha_spider.py -o ./seekingalpha.json
+python seekingalpha_news_spider.py
