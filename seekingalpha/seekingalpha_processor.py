@@ -14,7 +14,7 @@ def remove_linebreaker_tabs(token):
 
 def is_useless(token):
 	useless_types = ['ADP', 'CONJ', 'CCONJ', 'NUM', 'DET', 'PUNCT', 'SYM'];
-	return len(token) <= 2 or token.is_digit or token.is_punct or token.like_num or token.pos_ in useless_types
+	return len(token) <= 2 or token.is_digit or token.is_punct or token.like_num or token.is_stop or token.pos_ in useless_types
 
 nlp = spacy.load('en')
 script_dir = os.path.dirname(__file__)
