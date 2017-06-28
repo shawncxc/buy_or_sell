@@ -11,8 +11,9 @@ script_dir = os.path.dirname(__file__)
 file_path = os.path.join(script_dir, './seekingalpha_nlp.json')
 
 companies_vectors = {}
+titles_word = []
 titles_vec = []
-limit = 100
+limit = 50
 count = 0
 
 with open(file_path, 'r') as companies:
@@ -27,12 +28,14 @@ with open(file_path, 'r') as companies:
 			for word in title:
 				word_vec = nlp.vocab[word].vector
 				titles_vec.append(word_vec)
+				titles_word.append(word)
 				print word, word_vec
 
 X = np.array(titles_vec)
 model = TSNE()
 twod_data = model.fit_transform(X)
-twod_data = pd.DataFrame(twod_data, columns=[u'x_coord', u'y_coord'])
+twod_data = pd.DataFrame(twod_data, index=titles_word, columns=[u'x_coord', u'y_coord'])
+twod_data[u'word'] = twod_data.index
 print twod_data
 
 from bokeh.plotting import figure, show, output_notebook
@@ -40,5 +43,6 @@ from bokeh.models import HoverTool, ColumnDataSource, value
 
 twod_data = ColumnDataSource(twod_data)
 tsne_plot = figure(title=u'Stock news title word embedding', plot_width=800, plot_height=800, tools=(u'pan, wheel_zoom, box_zoom, box_select, resize, reset'))
-tsne_plot.circle(u'x_coord', u'y_coord', source=twod_data, color=u'blue', line_alpha=0.2, fill_alpha=0.1, size=5, hover_line_color=u'black')
+tsne_plot.circle(u'x_coord', u'y_coord', source=twod_data, color=u'blue', line_alpha=0.2, fill_alpha=0.1, size=8, hover_line_color=u'black')
+tsne_plot.add_tools(HoverTool(tooltips=u'@word'))
 show(tsne_plot)
