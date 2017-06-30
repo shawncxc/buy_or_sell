@@ -13,7 +13,7 @@ file_path = os.path.join(script_dir, './seekingalpha_nlp.json')
 companies_vectors = {}
 titles_word = []
 titles_vec = []
-limit = 50
+limit = 500
 count = 0
 
 with open(file_path, 'r') as companies:
