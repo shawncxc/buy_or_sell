@@ -14,7 +14,7 @@ with open(file_path, 'r') as companies:
 	for company in companies:
 		symbol = company['symbol']
 		seeking_dict[symbol] = []
-		for page in range(1, 2):
+		for page in range(1, 11):
 			url = 'https://seekingalpha.com/symbol/{symbol}/news/more_news_all?page={page}'.format(symbol=symbol, page=page)
 			req = urllib2.Request(url)
 			req.add_header('User-agent', 'Mozilla/5.0')

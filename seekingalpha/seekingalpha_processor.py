@@ -58,6 +58,16 @@ def convert_date(date_str):
 		day = str(thrid_pos)
 		return month + '/' + day + '/' + year
 
+def find_delta(symbol, date_str):
+	script_dir = os.path.dirname(__file__)
+	file_path = os.path.join(script_dir, '../ticker/stock_history.json')
+	with open(file_path, 'r') as stock_history:
+		stock_history = json.load(stock_history)
+		his = stock_history[symbol]
+		for price in his:
+			if price['date'] == date_str:
+				return price['close'] - price['open']
+
 nlp = spacy.load('en')
 script_dir = os.path.dirname(__file__)
 file_path = os.path.join(script_dir, './seekingalpha.json')
@@ -72,10 +82,12 @@ with open(file_path, 'r') as companies:
 		for i in range(0, len(news)):
 			single_news = news[i]
 			converted_date = convert_date(single_news['date'])
+			delta = find_delta(company, converted_date)
 			single_news_nlp = {
 				'title': [],
 				'content': [],
-				'date': converted_date
+				'date': converted_date,
+				'delta': delta
 			}
 			
 			title_nlp = nlp(single_news['title'])
@@ -91,7 +103,7 @@ with open(file_path, 'r') as companies:
 				single_news_nlp['content'].append(lemma)
 
 			companies_dict_nlp[company].append(single_news_nlp)
-			print single_news_nlp
+			print company, single_news_nlp["date"], single_news_nlp["delta"]
 
 file_path = os.path.join(script_dir, './seekingalpha_nlp.json')
 with open(file_path, 'w+') as result_file:
