@@ -5,6 +5,7 @@ import os
 import json
 import re
 import urllib2
+import time
 
 seeking_dict = {}
 script_dir = os.path.dirname(__file__)
@@ -17,6 +18,7 @@ with open(file_path, 'r') as companies:
 		for page in range(1, 11):
 			url = 'https://seekingalpha.com/symbol/{symbol}/news/more_news_all?page={page}'.format(symbol=symbol, page=page)
 			req = urllib2.Request(url)
+			time.sleep(2)
 			req.add_header('User-agent', 'Mozilla/5.0')
 			try:
 				response = urllib2.urlopen(req)
