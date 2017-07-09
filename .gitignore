@@ -1,3 +1,5 @@
 *.pyc
 *.json
 *.csv
+*.sav
+.DS_Store

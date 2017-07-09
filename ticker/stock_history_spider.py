@@ -8,7 +8,7 @@ import re
 
 def get_all_history():
     hisdict = {}
-    duration = '1y'
+    duration = '1w'
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, './companies.json')
     with open(file_path, 'r') as file:

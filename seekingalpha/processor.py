@@ -51,11 +51,13 @@ def convert_date(date_str):
 		year = str(thrid_pos)
 		month = month_table[first_pos]
 		day = second_pos
+		if len(day) == 1: day = '0' + day
 		return month + '/' + day + '/' + year
 	else:
 		year = str(date.today().year)
 		month = month_table[second_pos]
 		day = str(thrid_pos)
+		if len(day) == 1: day = '0' + day
 		return month + '/' + day + '/' + year
 
 def find_delta(symbol, date_str):
@@ -66,7 +68,7 @@ def find_delta(symbol, date_str):
 		his = stock_history[symbol]
 		for price in his:
 			if price['date'] == date_str:
-				return price['close'] - price['open']
+				return (price['close'] - price['open']) / price['open'] * 100
 
 nlp = spacy.load('en')
 script_dir = os.path.dirname(__file__)

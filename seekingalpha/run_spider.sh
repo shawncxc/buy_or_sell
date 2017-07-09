@@ -1,1 +1,1 @@
-python seekingalpha_news_spider.py
+python news_spider.py
