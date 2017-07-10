@@ -1,3 +1,4 @@
+import numpy as np
 from sklearn.externals import joblib
 import spacy
 import seekingalpha.processor as processor
@@ -38,7 +39,7 @@ def vectorize(words):
 
 def get_result(title, content):
 	words = load_news(title, content)
-	X_test = vectorize(words)
+	X_test = [vectorize(words)]
 	result = loaded_model.predict(X_test)
 	print(result)
 	return result

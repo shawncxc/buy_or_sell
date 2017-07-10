@@ -14,3 +14,5 @@ def train():
 		reg.fit(X, Y)
 		pickle.dump(reg, open('linear_model.sav', 'wb'))
 		print 'model saved'
+
+train()
