@@ -37,8 +37,14 @@ def vectorize(words):
 	return embedding.avg_vec(word_vecs)
 
 def get_result(title, content):
+	if type(title).__name__ == 'str': title = unicode(title)
+	if type(content).__name__ == 'str': content = unicode(content)
 	words = load_news(title, content)
 	X_test = [vectorize(words)]
 	result = loaded_model.predict(X_test)
 	print(result)
 	return result
+
+# title = 'AMD: The ship is sinking, Bloomerburg say SELL'
+# content = 'The product of AMD is not as expected, and we say we should sell all of it'
+# get_result(title, content)
