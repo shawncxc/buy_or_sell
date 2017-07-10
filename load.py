@@ -1,4 +1,3 @@
-import numpy as np
 from sklearn.externals import joblib
 import spacy
 import seekingalpha.processor as processor
