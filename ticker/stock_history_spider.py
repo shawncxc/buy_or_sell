@@ -65,4 +65,3 @@ def process_text(text):
     return records
 
 get_all_history()
-# get_stock_history('1y', 'AA')

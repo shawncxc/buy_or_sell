@@ -70,43 +70,44 @@ def find_delta(symbol, date_str):
 			if price['date'] == date_str:
 				return (price['close'] - price['open']) / price['open'] * 100
 
-nlp = spacy.load('en')
-script_dir = os.path.dirname(__file__)
-file_path = os.path.join(script_dir, './seekingalpha.json')
+def process_news():
+	nlp = spacy.load('en')
+	script_dir = os.path.dirname(__file__)
+	file_path = os.path.join(script_dir, './seekingalpha.json')
 
-companies_dict_nlp = {}
+	companies_dict_nlp = {}
 
-with open(file_path, 'r') as companies:
-	companies = json.load(companies)
-	for company in companies:
-		news = companies[company]
-		companies_dict_nlp[company] = []
-		for i in range(0, len(news)):
-			single_news = news[i]
-			converted_date = convert_date(single_news['date'])
-			delta = find_delta(company, converted_date)
-			single_news_nlp = {
-				'title': [],
-				'content': [],
-				'date': converted_date,
-				'delta': delta
-			}
-			
-			title_nlp = nlp(single_news['title'])
-			for token in title_nlp:
-				lemma = remove_linebreaker_tabs(token.lemma_)
-				if is_useless(token): continue
-				single_news_nlp['title'].append(lemma)
+	with open(file_path, 'r') as companies:
+		companies = json.load(companies)
+		for company in companies:
+			news = companies[company]
+			companies_dict_nlp[company] = []
+			for i in range(0, len(news)):
+				single_news = news[i]
+				converted_date = convert_date(single_news['date'])
+				delta = find_delta(company, converted_date)
+				single_news_nlp = {
+					'title': [],
+					'content': [],
+					'date': converted_date,
+					'delta': delta
+				}
+				
+				title_nlp = nlp(single_news['title'])
+				for token in title_nlp:
+					lemma = remove_linebreaker_tabs(token.lemma_)
+					if is_useless(token): continue
+					single_news_nlp['title'].append(lemma)
 
-			content_nlp = nlp(single_news['content'])
-			for token in content_nlp:
-				lemma = remove_linebreaker_tabs(token.lemma_)
-				if is_useless(token): continue
-				single_news_nlp['content'].append(lemma)
+				content_nlp = nlp(single_news['content'])
+				for token in content_nlp:
+					lemma = remove_linebreaker_tabs(token.lemma_)
+					if is_useless(token): continue
+					single_news_nlp['content'].append(lemma)
 
-			companies_dict_nlp[company].append(single_news_nlp)
-			print company, single_news_nlp["date"], single_news_nlp["delta"]
+				companies_dict_nlp[company].append(single_news_nlp)
+				print company, single_news_nlp["date"], single_news_nlp["delta"]
 
-file_path = os.path.join(script_dir, './seekingalpha_nlp.json')
-with open(file_path, 'w+') as result_file:
-	json.dump(companies_dict_nlp, result_file)
+	file_path = os.path.join(script_dir, './seekingalpha_nlp.json')
+	with open(file_path, 'w+') as result_file:
+		json.dump(companies_dict_nlp, result_file)
